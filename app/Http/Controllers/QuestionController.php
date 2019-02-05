@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AskQuestionRequest;
 use App\Model\Question;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('question.create');
     }
 
     /**
@@ -35,9 +36,11 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AskQuestionRequest $request)
     {
-        //
+        $request->user()->questions()->create($request->all()); //$request->user is auth user. it will add user id to inserted question
+
+        return redirect()->route('questions.index')->with('success', 'Your Question is successfully added.');
     }
 
     /**

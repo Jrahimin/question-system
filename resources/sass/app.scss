@@ -12,3 +12,15 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+.counters{
+    margin-right: 20px;
+    font-size: 10px;
+    text-align: center;
+    border-right: 1px solid lightgray;
+}
+
+.vote,.answer{
+    width: 60px;
+    height: 60px;
+}
