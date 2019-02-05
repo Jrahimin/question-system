@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Model\Question;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,4 +28,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function questions(){
+        return $this->hasMany(Question::class);
+    }
+
+    public function getUrlAttribute(){
+        //return route('users.show', $this->id);
+        return "#";
+    }
 }
