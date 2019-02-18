@@ -49,9 +49,12 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Question $question)
     {
-        //
+        $question->increment('views');
+        $question->save();
+
+        return view('question.show', compact('question'));
     }
 
     /**
@@ -60,9 +63,9 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Question $question)
     {
-        //
+        return view('question.edit', compact('question'));
     }
 
     /**
@@ -72,9 +75,11 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AskQuestionRequest $request, Question $question)
     {
-        //
+        $question->update($request->only(['title', 'body']));
+
+        return redirect()->route('questions.index')->with(["success" => "Your Question is Updated"]);
     }
 
     /**
@@ -83,8 +88,10 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Question $question)
     {
-        //
+        $question->delete();
+
+        return redirect()->route('questions.index')->with(['success' => "Your message is deleted"]);
     }
 }

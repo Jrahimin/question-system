@@ -25,4 +25,8 @@ class Question extends Model
     public function getCreatedDateAttribute(){
         return $this->created_at->diffForHumans();
     }
+
+    public function question_answers(){
+        return $this->hasMany(Answer::class);
+    }
 }
